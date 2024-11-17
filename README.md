@@ -64,16 +64,13 @@
           }
           localStorage.setItem(key, JSON.stringify(item))
         },
-      
         get: key => {
           const itemStr = localStorage.getItem(key)
-      
           if (!itemStr) {
             return undefined
           }
           const item = JSON.parse(itemStr)
           const now = Date.now()
-      
           if (now > item.expiry) {
             localStorage.removeItem(key)
             return undefined
@@ -81,7 +78,6 @@
           return item.value
         }
       }
-    
       win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
         const script = document.createElement('script')
         script.src = url
@@ -93,14 +89,11 @@
           script.onload = script.onreadystatechange = null
           resolve()
         }
-
         Object.keys(attr).forEach(key => {
           script.setAttribute(key, attr[key])
         })
-
         document.head.appendChild(script)
       })
-    
       win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
         const link = document.createElement('link')
         link.rel = 'stylesheet'
@@ -115,7 +108,6 @@
         }
         document.head.appendChild(link)
       })
-    
       win.activateDarkMode = () => {
         document.documentElement.setAttribute('data-theme', 'dark')
         if (document.querySelector('meta[name="theme-color"]') !== null) {
@@ -129,10 +121,8 @@
         }
       }
       const t = saveToLocal.get('theme')
-    
         if (t === 'dark') activateDarkMode()
         else if (t === 'light') activateLightMode()
-      
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -141,7 +131,6 @@
           document.documentElement.classList.remove('hide-aside')
         }
       }
-    
       const detectApple = () => {
         if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
           document.documentElement.classList.add('apple')
