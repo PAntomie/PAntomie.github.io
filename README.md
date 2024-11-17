@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="zh_cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>名人堂</title><meta name="author" content="Sunaokami Shiroko"><meta name="copyright" content="Sunaokami Shiroko"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
-<meta property="og:title" content="名人堂">
+<meta property="og:title" content="20270606">
 <meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="名人堂">
+<meta property="og:site_name" content="20270606">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/02/06/65c1f056dc08f.png">
 <meta property="article:author" content="Sunaokami Shiroko">
