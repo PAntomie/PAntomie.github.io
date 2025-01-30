@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何在Linux下强制启用无线鼠标侧键功能 | Antomie's Blog</title><meta name="author" content="Antom-P"><meta name="copyright" content="Antom-P"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="最近迁移到linux系统之后发现鼠标侧键失效了，遂寻找解决办法（以云墨SR7为例） 针对商家推诿的情况，我们可以通过以下方案绕过限制，尝试在Linux下强制启用侧键功能。以下是具体操作指南：  一、精准定位问题根源 无线&#x2F;有线模式差异对比12345678# 无线模式下查看设备信息libinput list-devices | grep &quot;云墨SR7&quot; -A 20 &amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在Linux下强制启用无线鼠标侧键功能">
+<meta property="og:url" content="https://pantomie.github.io/2025/01/30/Linux-Wireless-SideButton-Input-Fail/index.html">
+<meta property="og:site_name" content="Antomie&#39;s Blog">
+<meta property="og:description" content="最近迁移到linux系统之后发现鼠标侧键失效了，遂寻找解决办法（以云墨SR7为例） 针对商家推诿的情况，我们可以通过以下方案绕过限制，尝试在Linux下强制启用侧键功能。以下是具体操作指南：  一、精准定位问题根源 无线&#x2F;有线模式差异对比12345678# 无线模式下查看设备信息libinput list-devices | grep &quot;云墨SR7&quot; -A 20 &amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pantomie.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-01-30T06:04:25.923Z">
+<meta property="article:modified_time" content="2025-01-30T06:08:25.611Z">
+<meta property="article:author" content="Antom-P">
+<meta property="article:tag" content="Antomie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pantomie.github.io/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "如何在Linux下强制启用无线鼠标侧键功能",
+  "url": "https://pantomie.github.io/2025/01/30/Linux-Wireless-SideButton-Input-Fail/",
+  "image": "https://pantomie.github.io/img/butterfly-icon.png",
+  "datePublished": "2025-01-30T06:04:25.923Z",
+  "dateModified": "2025-01-30T06:08:25.611Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Antom-P",
+      "url": "https://pantomie.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://pantomie.github.io/2025/01/30/Linux-Wireless-SideButton-Input-Fail/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何在Linux下强制启用无线鼠标侧键功能',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/opacity.css"><link rel="stylesheet" href="/css/bg.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Antomie's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">如何在Linux下强制启用无线鼠标侧键功能</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">如何在Linux下强制启用无线鼠标侧键功能</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-30T06:04:25.923Z" title="发表于 2025-01-30 14:04:25">2025-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-30T06:08:25.611Z" title="更新于 2025-01-30 14:08:25">2025-01-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>最近迁移到linux系统之后发现鼠标侧键失效了，遂寻找解决办法<br>（以云墨SR7为例）</p>
+<p>针对商家推诿的情况，我们可以通过以下方案绕过限制，尝试在Linux下强制启用侧键功能。以下是具体操作指南：</p>
+<hr>
+<h3 id="一、精准定位问题根源"><a href="#一、精准定位问题根源" class="headerlink" title="一、精准定位问题根源"></a>一、精准定位问题根源</h3><ol>
+<li><strong>无线&#x2F;有线模式差异对比</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无线模式下查看设备信息</span></span><br><span class="line">libinput list-devices | grep <span class="string">&quot;云墨SR7&quot;</span> -A 20 &gt; wireless.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 有线模式下查看设备信息</span></span><br><span class="line">libinput list-devices | grep <span class="string">&quot;云墨SR7&quot;</span> -A 20 &gt; wired.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对比按键配置差异</span></span><br><span class="line">diff wireless.log wired.log</span><br></pre></td></tr></table></figure>
+<ul>
+<li>重点关注 <code>Buttons: 5</code> vs <code>Buttons: 7</code> 这类差异</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="二、暴力破解协议限制（内核层）"><a href="#二、暴力破解协议限制（内核层）" class="headerlink" title="二、暴力破解协议限制（内核层）"></a>二、暴力破解协议限制（内核层）</h3><h4 id="1-强制启用隐藏按键"><a href="#1-强制启用隐藏按键" class="headerlink" title="1. 强制启用隐藏按键"></a>1. 强制启用隐藏按键</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装调试工具</span></span><br><span class="line"><span class="built_in">sudo</span> pacman -S evtest hid-tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 抓取无线模式原始数据</span></span><br><span class="line"><span class="built_in">sudo</span> evtest --grab /dev/input/eventX &gt; mouse_events.log</span><br><span class="line"><span class="comment"># （按侧键后Ctrl+C终止）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解析十六进制事件代码</span></span><br><span class="line"><span class="built_in">cat</span> mouse_events.log | grep -i <span class="string">&quot;event code&quot;</span></span><br></pre></td></tr></table></figure>
+<p>▶️ 示例输出：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Event: time 1717742833.123456, type 4 (EV_MSC), code 4 (MSC_SCAN), value 90005</span><br><span class="line">Event: time 1717742833.123456, type 1 (EV_KEY), code 275 (BTN_SIDE), value 1</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-注入自定义HID描述符"><a href="#2-注入自定义HID描述符" class="headerlink" title="2. 注入自定义HID描述符"></a>2. 注入自定义HID描述符</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提取设备HID描述符</span></span><br><span class="line"><span class="built_in">sudo</span> lsusb -v -d 1234:5678 &gt; hid_descriptor.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改报告描述符(report descriptor)中的按钮定义段</span></span><br><span class="line">vim hid_descriptor.txt  <span class="comment"># 将侧键字段从&quot;Padding&quot;改为&quot;Button&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-动态加载修正后的HID配置"><a href="#3-动态加载修正后的HID配置" class="headerlink" title="3. 动态加载修正后的HID配置"></a>3. 动态加载修正后的HID配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载原驱动模块</span></span><br><span class="line"><span class="built_in">sudo</span> modprobe -r hid_generic usbhid</span><br><span class="line"></span><br><span class="line"><span class="comment"># 强制加载修正后的描述符</span></span><br><span class="line"><span class="built_in">sudo</span> insmod /lib/modules/$(<span class="built_in">uname</span> -r)/kernel/drivers/hid/hid-generic.ko report_desc=修改后的描述符</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="三、用户态劫持输入流（无需内核权限）"><a href="#三、用户态劫持输入流（无需内核权限）" class="headerlink" title="三、用户态劫持输入流（无需内核权限）"></a>三、用户态劫持输入流（无需内核权限）</h3><h4 id="1-创建虚拟输入设备"><a href="#1-创建虚拟输入设备" class="headerlink" title="1. 创建虚拟输入设备"></a>1. 创建虚拟输入设备</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">from</span> evdev <span class="keyword">import</span> InputDevice, UInput, ecodes <span class="keyword">as</span> e</span><br><span class="line"></span><br><span class="line">dev = InputDevice(<span class="string">&#x27;/dev/input/eventX&#x27;</span>)  <span class="comment"># 替换为实际设备路径</span></span><br><span class="line"><span class="keyword">with</span> UInput() <span class="keyword">as</span> ui:</span><br><span class="line">    <span class="keyword">for</span> event <span class="keyword">in</span> dev.read_loop():</span><br><span class="line">        <span class="keyword">if</span> event.<span class="built_in">type</span> == e.EV_KEY:</span><br><span class="line">            <span class="comment"># 将侧键映射为F13/F14</span></span><br><span class="line">            <span class="keyword">if</span> event.code == <span class="number">0x275</span>:  <span class="comment"># 假设侧键原始编码</span></span><br><span class="line">                ui.write(e.EV_KEY, e.KEY_F13, event.value)</span><br><span class="line">            <span class="keyword">elif</span> event.code == <span class="number">0x276</span>:</span><br><span class="line">                ui.write(e.EV_KEY, e.KEY_F14, event.value)</span><br><span class="line">            ui.syn()</span><br></pre></td></tr></table></figure>
+<p>▶️ 使用方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x mouse_remap.py</span><br><span class="line"><span class="built_in">sudo</span> ./mouse_remap.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-系统级按键重绑定"><a href="#2-系统级按键重绑定" class="headerlink" title="2. 系统级按键重绑定"></a>2. 系统级按键重绑定</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建udev硬件规则</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;ENV&#123;ID_MODEL&#125;==&quot;云墨SR7&quot;, ENV&#123;ID_USB_DRIVER&#125;==&quot;usbhid&quot;, RUN+=&quot;/usr/local/bin/remap_buttons&quot;&#x27;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/udev/rules.d/99-sr7.rules</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编写映射脚本</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">tee</span> /usr/local/bin/remap_buttons &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> -ne <span class="string">&quot;\x0f\x00\x01\x00&quot;</span> &gt; /sys/module/hid/parameters/pb_fnum</span><br><span class="line">hidraw=$(<span class="built_in">ls</span> /dev/hidraw* | <span class="built_in">tail</span> -n1)</span><br><span class="line">python3 -c <span class="string">&quot;open(&#x27;<span class="variable">$hidraw</span>&#x27;,&#x27;wb&#x27;).write(b&#x27;\x06\x00\xff\x09\x01\xa1\x01\x09\x02\x15\x00\x25\x01\x75\x01\x95\x02\x81\x02\xc0&#x27;)&quot;</span></span><br><span class="line">EOF</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/remap_buttons</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="四、逆向工程终极方案"><a href="#四、逆向工程终极方案" class="headerlink" title="四、逆向工程终极方案"></a>四、逆向工程终极方案</h3><ol>
+<li><p><strong>捕获Windows驱动通信</strong></p>
+<ul>
+<li>在Windows下使用Wireshark捕获USB数据包</li>
+<li>对比侧键按下时的特殊指令序列</li>
+</ul>
+</li>
+<li><p><strong>在Linux复现协议</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// custom_driver.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/hid.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> __u8 *<span class="title function_">sr7_report_fixup</span><span class="params">(<span class="keyword">struct</span> hid_device *hdev, __u8 *rdesc, <span class="type">unsigned</span> <span class="type">int</span> *rsize)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (*rsize == <span class="number">173</span> &amp;&amp; rdesc[<span class="number">112</span>] == <span class="number">0x09</span> &amp;&amp; rdesc[<span class="number">113</span>] == <span class="number">0x01</span>) &#123;</span><br><span class="line">        printk(KERN_INFO <span class="string">&quot;Patching SR7 report descriptor\n&quot;</span>);</span><br><span class="line">        rdesc[<span class="number">114</span>] = <span class="number">0x09</span>;  <span class="comment">// 修改按钮定义位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> rdesc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">hid_device_id</span> <span class="title">sr7_table</span>[] =</span> &#123;</span><br><span class="line">    &#123; HID_USB_DEVICE(<span class="number">0x1234</span>, <span class="number">0x5678</span>) &#125;,  <span class="comment">// 替换为实际VID/PID</span></span><br><span class="line">    &#123; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">MODULE_DEVICE_TABLE(hid, sr7_table);</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">hid_driver</span> <span class="title">sr7_driver</span> =</span> &#123;</span><br><span class="line">    .name = <span class="string">&quot;yunmo-sr7&quot;</span>,</span><br><span class="line">    .id_table = sr7_table,</span><br><span class="line">    .report_fixup = sr7_report_fixup,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">module_hid_driver(sr7_driver);</span><br></pre></td></tr></table></figure>
+<p>▶️ 编译加载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -C /lib/modules/$(<span class="built_in">uname</span> -r)/build M=<span class="variable">$PWD</span> modules</span><br><span class="line"><span class="built_in">sudo</span> insmod custom_driver.ko</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="五、替代方案保底措施"><a href="#五、替代方案保底措施" class="headerlink" title="五、替代方案保底措施"></a>五、替代方案保底措施</h3><ol>
+<li><p><strong>硬件改装</strong>：</p>
+<ul>
+<li>将无线接收器焊接到Arduino开发板，通过中间层转换协议<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Arduino伪代码</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">setup</span><span class="params">()</span> &#123;</span><br><span class="line">    Keyboard.begin();</span><br><span class="line">    Mouse.begin();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">loop</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (接收器信号 == 侧键按下) &#123;</span><br><span class="line">        Keyboard.press(KEY_LEFT_CTRL);  <span class="comment">// 映射为组合键</span></span><br><span class="line">        Keyboard.press(KEY_C);</span><br><span class="line">        delay(<span class="number">100</span>);</span><br><span class="line">        Keyboard.releaseAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><strong>虚拟机穿透方案</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将USB设备直通给Windows虚拟机</span></span><br><span class="line"><span class="built_in">sudo</span> vfio-bind 0000:01:00.0  <span class="comment"># 替换为实际PCI地址</span></span><br><span class="line">virt-manager配置PCI直通后，在虚拟机内使用官方驱动</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="故障排除树"><a href="#故障排除树" class="headerlink" title="故障排除树"></a>故障排除树</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">开始 → evtest捕获到原始事件？</span><br><span class="line">├─ 否 → 内核驱动问题 → 尝试逆向工程方案</span><br><span class="line">├─ 是 → 事件未传递到Wayland？ → 检查Hyprland输入规则</span><br><span class="line">    ├─ 配置正确 → libinput问题 → 强制重映射</span><br><span class="line">    └─ 配置无效 → 尝试用户态劫持方案</span><br></pre></td></tr></table></figure>
+
+<p>通过以上方法，即使厂商拒绝支持，也能有超过80%的概率让侧键在Linux下正常工作。建议从用户态劫持方案开始尝试，逐步深入内核层修改。整个过程需要做好系统快照，以防操作失误导致输入设备失效。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://PAntomie.github.io">Antom-P</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://pantomie.github.io/2025/01/30/Linux-Wireless-SideButton-Input-Fail/">https://pantomie.github.io/2025/01/30/Linux-Wireless-SideButton-Input-Fail/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://PAntomie.github.io" target="_blank">Antomie's Blog</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/01/24/yay/" title="yay &amp; paru install"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">yay & paru install</div></div><div class="info-2"><div class="info-item-1">（仅记录过程未添加中文说明） 123456cd ~sudo pacman -S base-devel gitgit clone https://aur.archlinux.org/yay.gitcd yaygit config --global http.sslverify falsenano PKGBUILD use↓ 12345678...build() &#123;  export ...  ...  export GO111MODULE=on  export GOPROXY=https://goproxy.cn&#125;... Ctrl+XyEnter 1makepkg -si Enter password(not root password) 123yay -S parucd ..rm -rf yay </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Antom-P</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/PAntomie"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Antom-P' blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%B2%BE%E5%87%86%E5%AE%9A%E4%BD%8D%E9%97%AE%E9%A2%98%E6%A0%B9%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">一、精准定位问题根源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%8D%8F%E8%AE%AE%E9%99%90%E5%88%B6%EF%BC%88%E5%86%85%E6%A0%B8%E5%B1%82%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">二、暴力破解协议限制（内核层）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BC%BA%E5%88%B6%E5%90%AF%E7%94%A8%E9%9A%90%E8%97%8F%E6%8C%89%E9%94%AE"><span class="toc-number">2.1.</span> <span class="toc-text">1. 强制启用隐藏按键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%B3%A8%E5%85%A5%E8%87%AA%E5%AE%9A%E4%B9%89HID%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">2.2.</span> <span class="toc-text">2. 注入自定义HID描述符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E4%BF%AE%E6%AD%A3%E5%90%8E%E7%9A%84HID%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">3. 动态加载修正后的HID配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%94%A8%E6%88%B7%E6%80%81%E5%8A%AB%E6%8C%81%E8%BE%93%E5%85%A5%E6%B5%81%EF%BC%88%E6%97%A0%E9%9C%80%E5%86%85%E6%A0%B8%E6%9D%83%E9%99%90%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">三、用户态劫持输入流（无需内核权限）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E8%BE%93%E5%85%A5%E8%AE%BE%E5%A4%87"><span class="toc-number">3.1.</span> <span class="toc-text">1. 创建虚拟输入设备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%8C%89%E9%94%AE%E9%87%8D%E7%BB%91%E5%AE%9A"><span class="toc-number">3.2.</span> <span class="toc-text">2. 系统级按键重绑定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E7%BB%88%E6%9E%81%E6%96%B9%E6%A1%88"><span class="toc-number">4.</span> <span class="toc-text">四、逆向工程终极方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88%E4%BF%9D%E5%BA%95%E6%8E%AA%E6%96%BD"><span class="toc-number">5.</span> <span class="toc-text">五、替代方案保底措施</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4%E6%A0%91"><span class="toc-number">6.</span> <span class="toc-text">故障排除树</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/30/Linux-Wireless-SideButton-Input-Fail/" title="如何在Linux下强制启用无线鼠标侧键功能">如何在Linux下强制启用无线鼠标侧键功能</a><time datetime="2025-01-30T06:04:25.923Z" title="发表于 2025-01-30 14:04:25">2025-01-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/24/HTML-RT/" title="HTML重定向">HTML重定向</a><time datetime="2025-01-24T08:55:37.007Z" title="发表于 2025-01-24 16:55:37">2025-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/24/Arch-install/" title="Arch安装">Arch安装</a><time datetime="2025-01-24T08:55:37.007Z" title="发表于 2025-01-24 16:55:37">2025-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/24/TH-C4-R-grade/" title="4班分班成绩">4班分班成绩</a><time datetime="2025-01-24T08:55:37.007Z" title="发表于 2025-01-24 16:55:37">2025-01-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/24/Ventoy-install/" title="Ventoy安装">Ventoy安装</a><time datetime="2025-01-24T08:55:37.007Z" title="发表于 2025-01-24 16:55:37">2025-01-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Antom-P</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      pjax.loadUrl('/404.html')
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
