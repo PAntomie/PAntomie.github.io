@@ -39,8 +39,6 @@ jobs:
         with:
           # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
           node-version: 21.x
-          # File containing the version Spec of the version to use.  Examples: .nvmrc, .node-version, .tool-versions.
-          node-version-file: .node-version
           # Target architecture for Node to use. Examples: x86, x64. Will use system architecture by default.
           architecture: x64
           # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm.
