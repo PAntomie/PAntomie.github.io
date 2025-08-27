@@ -46,7 +46,7 @@ jobs:
           # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
           cache-dependency-path: package-lock.json
       - name: init
-        run: npm i -g hexo-cli hexo-util pnpm; pnpm i
+        run: npm i -g hexo-cli hexo-util; npm i
       - name: clean
         run: hexo clean
       - name: generate
