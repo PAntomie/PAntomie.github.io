@@ -11,12 +11,16 @@
 
 nav:
   # Navigation bar logo image
-  logo:
+  logo: 
   display_title: true
   # Whether to fix navigation bar
   fixed: false
 
 menu:
+  主页: / || fas fa-home
+  归档: /archives/ || fas fa-archive
+  友链: /links/ || fas fa-link
+  关于: /about/ || fas fa-user
   # Home: / || fas fa-home
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
@@ -283,11 +287,11 @@ aside:
     button:
       enable: true
       icon: fab fa-github
-      text: 在Github上关注
+      text: Github主页
       link: https://github.com/PAntomie
   card_announcement:
     enable: true
-    content: 暂无
+    content: 暂无公告
   card_recent_post:
     enable: true
     # If set 0 will show all
