@@ -13,8 +13,10 @@ cd yay
 git config --global http.sslverify false
 nano PKGBUILD
 ```
-use**↓**
-![](../img/ac3.png)
+
+在以下位置添加如下内容
+![ac3](../img/ac3.png)
+
 ```PKGBUILD
 ...
 build() {
@@ -25,18 +27,23 @@ build() {
 }
 ...
 ```
+
 Ctrl+X
 y
 Enter
 
-
 ```bash
 makepkg -si
 ```
-![](../img/ac4.png)
+
+![ac4](../img/ac4.png)
+
 Enter password(not root password)
+
 ```bash
 yay -S paru
 cd ..
 rm -rf yay
 ```
+
+---
