@@ -15,7 +15,7 @@ nano PKGBUILD
 ```
 
 在以下位置添加如下内容
-![ac3](../img/ac3.png)
+![ac3](../img/arch-install/arch-install-step3.png)
 
 ```PKGBUILD
 ...
@@ -36,7 +36,7 @@ Enter
 makepkg -si
 ```
 
-![ac4](../img/ac4.png)
+![ac4](../img/arch-install/arch-install-step4.png)
 
 Enter password(not root password)
 

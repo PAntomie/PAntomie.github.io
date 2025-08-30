@@ -19,12 +19,12 @@ date: 2025-4-4
  -*祝你好运*
 
 - 如果一切顺利，你将能够来到这个界面
-![vt1](../img/vt1.png)
+![vt1](../img/ventoy-install/ventoy-boot-menu.png)
 
 - 使用**↑**，**↓**来选择镜像，按**回车**确认
 
 - 选择**archlinux-x86_64.iso**，回车
-- ![vt2](../img/vt2.png)
+- ![vt2](../img/ventoy-install/ventoy-iso-selection.png)
 - 选择**Boot in normal mode**，回车
 
 ## 正式开始安装Arch-Linux
@@ -35,10 +35,10 @@ date: 2025-4-4
 
 - 此时，你应该能看到这样的界面，或是黑乎乎的非图形化grub引导界面
 
-![ar1](../img/ar1.png)
+![ar1](../img/arch-install/arch-boot-screen.png)
 
 - 但是并不重要，只需要选择**第一个选项**回车就行
-- 稍等片刻以后，你将会来到这个界面![ar2](../img/ar2.png)
+- 稍等片刻以后，你将会来到这个界面![ar2](../img/arch-install/arch-after-boot.png)
 
 -*据瞎猜，至此，你已经超越了90%的人*
 **若使用非有线网络连接，则还需要配置网络连接**
@@ -53,7 +53,7 @@ echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > 
 pacman -Sy
 ```
 
-![ar3](../img/ar3.png)
+![ar3](../img/arch-install/arch-pacman-update.png)
 若看到这样的输出，说明一切正常
 
 ### 进行安装
@@ -65,7 +65,7 @@ archinstall
 ```
 
 稍等片刻，你将看到这个界面
-![ar4](../img/ar4.png)
+![ar4](../img/arch-install/archinstall-menu.png)
 
 - **不要修改第一项与第二项，你也不想看到你的终端全是密密麻麻的小方块吧？**
 
@@ -113,7 +113,7 @@ archinstall
  ```
 
 **当关机后拔掉用来安装系统的U盘再开机**
-若在重启后看到如下界面![ar5](../img/ar5.png)
+若在重启后看到如下界面![ar5](../img/arch-install/arch-success-boot.png)
 ***则说明你成功了！***
 
 ---
