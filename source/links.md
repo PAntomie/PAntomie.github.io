@@ -62,6 +62,6 @@ title: 友情链接
     KAFU的小窝
   </div>
 </a>
-\n
+- 
 <font color=red>我的朋友，已于2025年9月10日凌晨1:24服药自杀
 <font color=grey>R.I.P.
