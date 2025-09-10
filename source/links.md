@@ -63,5 +63,5 @@ title: 友情链接
   </div>
 </a>
 \n
-<font color=red size=32>我的朋友，已于2025年9月10日凌晨1:24服药自杀<\font>
-<font color=grey>R.I.P.<\font>
+<font color=red size=32>我的朋友，已于2025年9月10日凌晨1:24服药自杀
+<font color=grey>R.I.P.
