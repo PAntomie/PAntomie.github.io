@@ -32,7 +32,7 @@ menu:
 
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
-  theme: light
+  theme: pale night
   macStyle: false
   # Code block height limit (unit: px)
   height_limit: false
@@ -95,7 +95,7 @@ footer_img: true
 
 # Website Background
 # Can set it to color or image url
-background: /img/bg.jpg
+background: /img/bg.png
 
 cover:
   # Disable the cover or not
