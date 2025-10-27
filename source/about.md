@@ -13,6 +13,6 @@ title: 关于本博客
 
 ### 博主P-Antomie
 
-- [关于我？](antomie.pages.dev/myexp)
+- [关于我？](https://antomie.pages.dev/myexp)
 - Github名为PAntomie
 - Bilibili名为P-Antom，在Bilibili发布的内容更偏娱乐而非实用
