@@ -17,7 +17,7 @@ nix-env -iA nixpkgs.nano
 
 ### 1.2 卸载软件包  
 ```bash
-nix-env --uninstall hello
+nix-env --uninstall nano
 ```
 
 ### 1.3 搜索软件包  
@@ -29,7 +29,7 @@ nix search nixpkgs firefox
 ### 1.4 创建临时开发环境  
 通过 `nix-shell` 构建隔离环境（以 Python 为例）：  
 ```bash
-nix-shell -p python310
+nix-shell -p python313
 ```
 退出环境后，所有依赖自动清理。  
 
