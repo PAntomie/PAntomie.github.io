@@ -70,6 +70,6 @@
 6. 若因特殊原因或不可抗力导致比赛中断，**比赛计时和通关计时不会暂停**，选手应尽快重新进入比赛页面继续作答。
 
 ---
-[C++考察范围与简要介绍](https://antomie.pages.dev/race/C++)
-[python考察范围与简要介绍](https://antomie.pages.dev/race/python)
+[C++考察范围与简要介绍](/race/C++)
+[python考察范围与简要介绍](/race/python)
 ---
