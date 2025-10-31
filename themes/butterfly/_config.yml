@@ -32,7 +32,7 @@ menu:
 
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
-  theme: light
+  theme: pale night
   macStyle: false
   # Code block height limit (unit: px)
   height_limit: false
@@ -66,7 +66,7 @@ avatar:
 disable_top_img: false
 
 # If the banner of page not setting, it will show the default_top_img
-default_top_img: rgb(57, 197, 187)
+default_top_img: 
 
 # The banner image of index page
 index_img: /img/bg.jpg
@@ -95,7 +95,7 @@ footer_img: true
 
 # Website Background
 # Can set it to color or image url
-background: /img/bg.jpg
+background: /img/bg.png
 
 cover:
   # Disable the cover or not
@@ -741,7 +741,7 @@ site_verification:
 
 theme_color:
   enable: true
-  main: "#49B1F5"
+  main: "#39C5BB"
   paginator: "#00c4b6"
   button_hover: "#FF7242"
   text_selection: "#00c4b6"
