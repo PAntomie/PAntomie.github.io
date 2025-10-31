@@ -81,7 +81,7 @@ disable_top_img: false
 default_top_img: 
 
 # The banner image of index page
-index_img: /img/bg.jpg
+index_img: /img/cyn.png
 
 # The banner image of archive page
 archive_img:
