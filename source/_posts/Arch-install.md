@@ -8,7 +8,7 @@ date: 2025-4-4
 - 使用以下链接从[清华大学开源镜像站](https://mirrors.tuna.tsinghua.edu.cn)站下载
 <https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/archlinux-x86_64.iso>
 
-- 根据[我的另一个教程](https://antomie.pages.dev/2025/01/24/Ventoy-install/)安装Ventoy之后，将下载的镜像移至安装了Ventoy的存储设备内
+- 根据[我的另一个教程](/2025/01/24/Ventoy-install/)安装Ventoy之后，将下载的镜像移至安装了Ventoy的存储设备内
 
 - 确保**已安装Ventoy的存储设备**与**将要安装Arch的存储设备**正常，重启电脑，在开机时狂按特定按键，进入BIOS或启动菜单，选择**已安装Ventoy的存储设备**启动。进入BIOS的按键因主板而异，部分主板开机时会提示
   - 一般为**F1,F5,F11,F12,Delete**。
@@ -19,12 +19,12 @@ date: 2025-4-4
  -*祝你好运*
 
 - 如果一切顺利，你将能够来到这个界面
-![vt1](../img/ventoy-install/ventoy-boot-menu.png)
+![vt1](/img/ventoy-install/ventoy-boot-menu.png)
 
 - 使用**↑**，**↓**来选择镜像，按**回车**确认
 
 - 选择**archlinux-x86_64.iso**，回车
-- ![vt2](../img/ventoy-install/ventoy-iso-selection.png)
+- ![vt2](/img/ventoy-install/ventoy-iso-selection.png)
 - 选择**Boot in normal mode**，回车
 
 ## 正式开始安装Arch-Linux
@@ -38,7 +38,7 @@ date: 2025-4-4
 ![ar1](../img/arch-install/arch-boot-screen.png)
 
 - 但是并不重要，只需要选择**第一个选项**回车就行
-- 稍等片刻以后，你将会来到这个界面![ar2](../img/arch-install/arch-after-boot.png)
+- 稍等片刻以后，你将会来到这个界面![ar2](/img/arch-install/arch-after-boot.png)
 
 -*据瞎猜，至此，你已经超越了90%的人*
 **若使用非有线网络连接，则还需要配置网络连接**
@@ -53,7 +53,7 @@ echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > 
 pacman -Sy
 ```
 
-![ar3](../img/arch-install/arch-pacman-update.png)
+![ar3](/img/arch-install/arch-pacman-update.png)
 若看到这样的输出，说明一切正常
 
 ### 进行安装
@@ -65,7 +65,7 @@ archinstall
 ```
 
 稍等片刻，你将看到这个界面
-![ar4](../img/arch-install/archinstall-menu.png)
+![ar4](/img/arch-install/archinstall-menu.png)
 
 - **不要修改第一项与第二项，你也不想看到你的终端全是密密麻麻的小方块吧？**
 
@@ -113,7 +113,7 @@ archinstall
  ```
 
 **当关机后拔掉用来安装系统的U盘再开机**
-若在重启后看到如下界面![ar5](../img/arch-install/arch-success-boot.png)
+若在重启后看到如下界面![ar5](/img/arch-install/arch-success-boot.png)
 ***则说明你成功了！***
 
 ---
