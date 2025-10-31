@@ -48,7 +48,19 @@ code_blocks:
 # Social media links
 # Formal:
 #   icon: link || the description || color
+# --------------------------------------
+# 社交媒体链接配置
+# 格式：图标类名: 链接地址 || 显示文字 || 图标颜色
+# 颜色值支持：十六进制码 / RGB / 颜色名称
+# FontAwesome图标库：https://fontawesome.com/icons
+# --------------------------------------
 social:
+  fab fa-github: https://github.com/PAntomie || Github || '#39C5BB'/'
+  fab fa-bilibili: https://space.bilibili.com/498478848 || bilibili || '#39C5BB'
+  # 示例配置：
+  # fab fa-github: https://github.com/用户名 || Github || '#24292e'
+  # fas fa-envelope: mailto:邮箱地址 || 邮箱 || '#4a7dbe'
+
   # fab fa-github: https://github.com/xxxxx || Github || '#24292e'
   # fas fa-envelope: mailto:xxxxxx@gmail.com || Email || '#4a7dbe'
 
@@ -771,8 +783,8 @@ text_align_justify: false
 
 # Add a mask to the header and footer
 mask:
-  header: true
-  footer: true
+  header: false
+  footer: false
 
 # Loading Animation
 preloader:
