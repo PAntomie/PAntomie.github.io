@@ -872,7 +872,7 @@ canvas_nest:
   zIndex: -1
   # The number of lines
   count: 99
-  mobile: false
+  mobile: true
 
 # Mouse click effects: fireworks
 fireworks:
